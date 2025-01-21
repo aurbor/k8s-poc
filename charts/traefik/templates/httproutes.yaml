@@ -1,0 +1,26 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: httproute-web-app
+  namespace: traefik
+spec:
+  parentRefs:
+    - name: apigateway
+      namespace: traefik
+      sectionName: web
+      kind: Gateway
+
+  hostnames:
+    - "k8s-poc.api.dev.local"
+  
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+
+      backendRefs:
+        - name: web-app
+          namespace: default
+          port: 5000
+
