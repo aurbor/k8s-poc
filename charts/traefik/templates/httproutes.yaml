@@ -19,6 +19,13 @@ spec:
             type: PathPrefix
             value: /
 
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            add:
+              - name: X-Api-Gateway
+                value: "Served by Traefik"
+
       backendRefs:
         - name: web-app
           namespace: default
