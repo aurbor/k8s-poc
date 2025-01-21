@@ -62,6 +62,14 @@ This project deploys a simple Flask web application that displays basic pod info
    - Via Nginx Ingress: http://k8s-poc.dev.local
    - Via Traefik Gateway: http://k8s-poc.api.dev.local:8000
 
+3. Verify the API Gateway response header:
+   - Access http://k8s-poc.api.dev.local:8000 in your browser
+   - Open Chrome Developer Tools (F12 or Right Click → Inspect)
+   - Go to the Network tab
+   - Click on the request to the domain
+   - Look for the `X-Api-Gateway` response header in the Headers section
+   - You should see: `X-Api-Gateway: Served by Traefik`
+
 ## Configuration
 
 The application can be configured through the Helm values files:
