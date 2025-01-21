@@ -29,42 +29,33 @@ This project deploys a simple Flask web application that displays basic pod info
 
 ## Installation
 
-1. Start your local Kubernetes cluster (example using minikube):
-   ```bash
-   minikube start
-   ```
+1. Start your local Kubernetes cluster (eg. Docker Desktop or minikube)
 
 2. Install the Nginx Ingress Controller:
    ```bash
-   helm upgrade --install ingress-nginx ingress-nginx \
-     --repo https://kubernetes.github.io/ingress-nginx \
-     --namespace ingress-nginx --create-namespace
+   helm upgrade --install ingress-nginx ingress-nginx --repo https://kubernetes.github.io/ingress-nginx --namespace ingress-nginx --create-namespace
    ```
 
 3. Install Traefik:
    ```bash
-   helm upgrade --install traefik ./charts/traefik \
-     --namespace traefik --create-namespace
+   helm upgrade --install traefik ./charts/traefik --namespace traefik --create-namespace
    ```
 
 4. Build and load the web application Docker image:
    ```bash
    docker build -t web-app:1.2 src/
-   # If using minikube:
-   minikube image load web-app:1.2
    ```
 
 5. Deploy the web application:
    ```bash
-   helm upgrade --install web-app ./charts/web-app \
-     --namespace default
+   helm upgrade --install web-app ./charts/web-app --namespace default
    ```
 
 ## Verification
 
-1. Check if pods are running:
+1. Check if pods for the web app, ingress-nginx and traefik are running:
    ```bash
-   kubectl get pods
+   kubectl get pods --all-namespaces
    ```
 
 2. Access the application:
